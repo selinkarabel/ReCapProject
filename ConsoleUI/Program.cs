@@ -18,11 +18,10 @@ namespace ConsoleUI
                 Console.WriteLine(car.Description);
             }
 
-            Console.WriteLine("List of the car that car id is 3");
-            foreach (var car in carManager.GetById(3))
-            {
-                Console.WriteLine(car.Description);
-            }
+            Console.WriteLine("The car which has id number as 3");
+            var carInId = carManager.GetById(3);
+            Console.WriteLine(carInId.Description);
+            
 
 
             Console.WriteLine("List of the car that brand id is 3");
