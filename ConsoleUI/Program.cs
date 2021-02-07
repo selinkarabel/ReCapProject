@@ -19,8 +19,7 @@ namespace ConsoleUI
             }
 
             Console.WriteLine("The car which has id number as 3");
-            var carInId = carManager.GetById(3);
-            Console.WriteLine(carInId.Description);
+            Console.WriteLine((carManager.GetById(3)).Description);
             
 
 
@@ -32,6 +31,12 @@ namespace ConsoleUI
 
             Console.WriteLine("\n");
             carManager.Add(new Car { BrandId = 3, ColorId = 3, DailyPrice = 00, ModelYear = 2021, Description = "A" });
+
+            carManager.Update(new Car { CarId = 6, BrandId = 3, ColorId = 3, DailyPrice = 125, ModelYear = 2014, Description = "Manuel S" });
+
+            // carManager.Delete(new Car { CarId = 7 });
+
+
         }
     }
 }

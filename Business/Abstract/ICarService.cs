@@ -5,6 +5,7 @@ using System.Text;
 
 namespace Business.Abstract
 {
+    //coding which methods are needed..
     public interface ICarService
     {
         void Add(Car car);
@@ -12,5 +13,7 @@ namespace Business.Abstract
         Car GetById(int id);
         List<Car> GetCarsByBrandId(int id);
         List<Car> GetCarsByColorId(int id);
+        void Delete(Car car);
+        void Update(Car car);
     }
 }

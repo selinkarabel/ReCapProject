@@ -88,5 +88,15 @@ namespace Business.Concrete
             
             return _carDal.GetAll(p => p.ColorId == id);
         }
+
+        public void Delete(Car car)
+        {
+            _carDal.Delete(car);
+        }
+
+        public void Update(Car car)
+        {
+            _carDal.Update(car);
+        }
     }
 }

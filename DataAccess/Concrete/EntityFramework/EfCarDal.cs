@@ -18,6 +18,10 @@ namespace DataAccess.Concrete.EntityFramework
                 var addedEntity = context.Entry(entity);
                 addedEntity.State = EntityState.Added;
                 context.SaveChanges();
+
+                //another way
+                //context.Cars.Add(entity);
+                //context.SaveChanges();
             }
         }
 
@@ -28,6 +32,10 @@ namespace DataAccess.Concrete.EntityFramework
                 var deletedEntity = context.Entry(entity);
                 deletedEntity.State = EntityState.Deleted;
                 context.SaveChanges();
+
+                //another way
+                //context.Cars.Remove(context.Cars.SingleOrDefault(p => p.CarId == entity.CarId));
+                //context.SaveChanges();
             }
         }
 
@@ -56,6 +64,16 @@ namespace DataAccess.Concrete.EntityFramework
                 var updatedEntity = context.Entry(entity);
                 updatedEntity.State = EntityState.Modified;
                 context.SaveChanges();
+
+                //another way
+                //var carToUpdate = context.Cars.SingleOrDefault(p=>p.CarId==entity.CarId);
+                //carToUpdate.ColorId = entity.ColorId;
+                //carToUpdate.BrandId = entity.BrandId;
+                //carToUpdate.DailyPrice = entity.DailyPrice;
+                //carToUpdate.ModelYear = entity.ModelYear;
+                //carToUpdate.Description = entity.Description;
+
+                //context.SaveChanges();
             }
         }
     }
