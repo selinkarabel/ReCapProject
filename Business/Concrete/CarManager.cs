@@ -16,11 +16,11 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        private bool checkCarDescriptionValue(Car car)
+        private bool checkCarNameValue(Car car)
         {
             bool checkValue = true;
 
-            if (car.Description.Length <= 2)
+            if (car.CarName.Length <= 2)
                 checkValue = false;
 
             return checkValue;
@@ -38,24 +38,24 @@ namespace Business.Concrete
 
         public void Add(Car car)
         {
-            if (checkCarDescriptionValue(car) == true & checkCarDailyPriceValue(car) == true)
+            if (checkCarNameValue(car) == true & checkCarDailyPriceValue(car) == true)
             {
                 _carDal.Add(car);
             }
-            else if(!checkCarDescriptionValue(car))
+            else if(!checkCarNameValue(car))
             {
                 if (!checkCarDailyPriceValue(car))
                 {
                     Console.WriteLine("Adding a new car process failed --> Daily Price of the car can not be equal to 0 !");
                 }
                 
-                Console.WriteLine("Adding a new car process failed --> Description of the car must be min 2 characters!");
+                Console.WriteLine("Adding a new car process failed --> Name of the car must be min 2 characters!");
             }
             else if (!checkCarDailyPriceValue(car))
             {
-                if (!checkCarDescriptionValue(car))
+                if (!checkCarNameValue(car))
                 {
-                    Console.WriteLine("Adding a new car process failed --> Description of the car must be min 2 characters!");
+                    Console.WriteLine("Adding a new car process failed --> Name of the car must be min 2 characters!");
                 }
                 
                 Console.WriteLine("Adding a new car process failed --> Daily Price of the car can not be equal to 0 !");

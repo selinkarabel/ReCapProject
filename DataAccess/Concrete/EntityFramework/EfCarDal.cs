@@ -72,6 +72,7 @@ namespace DataAccess.Concrete.EntityFramework
                 //carToUpdate.DailyPrice = entity.DailyPrice;
                 //carToUpdate.ModelYear = entity.ModelYear;
                 //carToUpdate.Description = entity.Description;
+                //carToUpdate.CarName = entity.CarName;
 
                 //context.SaveChanges();
             }

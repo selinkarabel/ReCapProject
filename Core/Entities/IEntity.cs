@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Entities.Abstract
+namespace Core.Entities
 {
     //The class which implements IEntity is a database table.
     public interface IEntity
