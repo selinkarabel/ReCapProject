@@ -39,3 +39,41 @@ VALUES
 	('Mercedes'),
 	('BMW'),
 	('Dodge');
+
+	CREATE TABLE Users(
+	UserID int PRIMARY KEY IDENTITY(1,1),
+	FirstName nvarchar(50),
+	MiddleName nvarchar(50),
+	LastName nvarchar(50),
+	UserEmail nvarchar(50),
+	UserPassword nvarchar(50)
+)
+
+CREATE TABLE Customers(
+	CustomerID int PRIMARY KEY IDENTITY(1,1),
+	UserID int,
+	CompanyName nvarchar(50),
+	FOREIGN KEY (UserID) REFERENCES Users(UserID)
+)
+
+CREATE TABLE Rentals(
+	RentalID int PRIMARY KEY IDENTITY(1,1),
+	CarID int,
+	CustomerID int,
+	RentDate datetime,
+	ReturnDate datetime,
+	FOREIGN KEY (CarID) REFERENCES Cars(CarID),
+	FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
+)
+
+INSERT INTO Users(FirstName,MiddleName,LastName,UserEmail,UserPassword)
+VALUES
+	('Selin','-','Karabel','sk@gmail.com','123456'),
+	('Cengizhan','M','Karabel','ck@gmail.com','123456'),
+	('Chivas','Von','Karabel','cvk@gmail.com','123456');
+
+INSERT INTO Customers(UserID,CompanyName)
+VALUES
+	('1','Selin K.'),
+	('2','TheKarabels'),
+	('3','WL German Shepherd');
