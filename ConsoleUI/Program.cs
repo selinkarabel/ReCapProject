@@ -21,10 +21,21 @@ namespace ConsoleUI
         private static void CarDetailTest()
         {
             CarManager carManager = new CarManager(new EfCarDal());
-            Console.WriteLine("CarName" + " / " + "BrandName" + " / " + "ColorName" + " / " + "DailyPrice");
-            foreach (var car in carManager.GetCarDetails())
+
+            var result = carManager.GetCarDetails();
+
+            if (result.Success == true)
             {
-                Console.WriteLine(car.CarName + " / " + car.BrandName + " / " + car.ColorName + " / " + car.DailyPrice);
+
+                Console.WriteLine("CarName" + " / " + "BrandName" + " / " + "ColorName" + " / " + "DailyPrice");
+                foreach (var car in result.Data)
+                {
+                    Console.WriteLine(car.CarName + " / " + car.BrandName + " / " + car.ColorName + " / " + car.DailyPrice);
+                }
+            }
+            else
+            {
+                Console.WriteLine(result.Message);
             }
         }
 
@@ -32,13 +43,13 @@ namespace ConsoleUI
         {
             ColorManager colorManager = new ColorManager(new EfColorDal());
             Console.WriteLine("List of colors");
-            foreach (var color in colorManager.GetAll())
+            foreach (var color in colorManager.GetAll().Data)
             {
                 Console.WriteLine("Color Id:" + color.ColorId + " Color Name:" + color.ColorName);
             }
 
             Console.WriteLine("The color which has id number 1");
-            Console.WriteLine(colorManager.GetById(1).ColorName);
+            Console.WriteLine(colorManager.GetById(1).Data.ColorName);
 
             //Console.WriteLine("Adding a new color");
             //colorManager.Add(new Color { ColorName = "Blue" });
@@ -54,13 +65,13 @@ namespace ConsoleUI
         {
             BrandManager brandManager = new BrandManager(new EfBrandDal());
             Console.WriteLine("List of brands");
-            foreach (var brand in brandManager.GetAll())
+            foreach (var brand in brandManager.GetAll().Data)
             {
                 Console.WriteLine("Brand id:" + brand.BrandId + " Brand Name:" + brand.BrandName);
             }
 
             Console.WriteLine("The brand which has id number 3");
-            Console.WriteLine(brandManager.GetById(3).BrandName);
+            Console.WriteLine(brandManager.GetById(3).Data.BrandName);
 
             //Console.WriteLine("Adding new brand");
             //Brand newBrand = new Brand();
@@ -79,32 +90,38 @@ namespace ConsoleUI
             CarManager carManager = new CarManager(new EfCarDal());
 
             Console.WriteLine("List of the car that color id is 1");
-            foreach (var car in carManager.GetCarsByColorId(1))
+            foreach (var car in carManager.GetCarsByColorId(1).Data)
             {
                 Console.WriteLine(car.CarName);
             }
 
             Console.WriteLine("The car which has id number 3");
-            Console.WriteLine((carManager.GetById(3)).CarName);
+            Console.WriteLine((carManager.GetById(3)).Data.CarName);
 
 
 
             Console.WriteLine("List of the car that brand id is 3");
-            foreach (var car in carManager.GetCarsByBrandId(3))
+            foreach (var car in carManager.GetCarsByBrandId(3).Data)
             {
                 Console.WriteLine(car.CarName);
             }
 
             Console.WriteLine("List of cars");
-            foreach(var car in carManager.GetAll())
+            foreach(var car in carManager.GetAll().Data)
             {
                 Console.WriteLine("Car Id:" + car.CarId + " CarName:"  + car.CarName + " Car Description:" + car.Description);
             }
 
             Console.WriteLine("\n");
-            carManager.Add(new Car { BrandId = 3, ColorId = 3, DailyPrice = 00, ModelYear = 2021, Description = "New Hybrid", CarName = "5" });
 
-            carManager.Update(new Car { CarId = 6, BrandId = 3, ColorId = 3, DailyPrice = 125, ModelYear = 2014, Description = "Manuel S", CarName = "Car4" });
+            var result = carManager.Add(new Car { BrandId = 3, ColorId = 3, DailyPrice = 00, ModelYear = 2021, Description = "New Hybrid", CarName = "5" });
+            Console.WriteLine(result.Message);
+
+
+            Console.WriteLine("\n");
+
+            var result2 = carManager.Update(new Car { CarId = 6, BrandId = 3, ColorId = 3, DailyPrice = 125, ModelYear = 2014, Description = "Manuel S", CarName = "Car4" });
+            Console.WriteLine(result2.Message);
 
             // carManager.Delete(new Car { CarId = 7 });
         }

@@ -1,4 +1,6 @@
 ﻿using Business.Abstract;
+using Business.Constants;
+using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
@@ -37,72 +39,87 @@ namespace Business.Concrete
             return checkValue;
         }
 
-        public void Add(Car car)
+        public IResult Add(Car car)
         {
             if (checkCarNameValue(car) == true & checkCarDailyPriceValue(car) == true)
             {
                 _carDal.Add(car);
+
+                return new SuccessResult(Messages.CarAdded);
             }
             else if(!checkCarNameValue(car))
             {
                 if (!checkCarDailyPriceValue(car))
                 {
-                    Console.WriteLine("Adding a new car process failed --> Daily Price of the car can not be equal to 0 !");
+                    return new ErrorResult(Messages.CarDailyPriceInvalid);
                 }
-                
-                Console.WriteLine("Adding a new car process failed --> Name of the car must be min 2 characters!");
+
+                return new ErrorResult(Messages.CarNameInvalid);
             }
             else if (!checkCarDailyPriceValue(car))
             {
                 if (!checkCarNameValue(car))
                 {
-                    Console.WriteLine("Adding a new car process failed --> Name of the car must be min 2 characters!");
+                    return new ErrorResult(Messages.CarNameInvalid);
                 }
-                
-                Console.WriteLine("Adding a new car process failed --> Daily Price of the car can not be equal to 0 !");
+
+                return new ErrorResult(Messages.CarDailyPriceInvalid);
             }
             else
             {
-                Console.WriteLine("Adding a new car process failed --> PLS contact with system admin..");
+                return new ErrorResult(Messages.ContactSysAdmin);
             }
+            
         }
 
-        public List<Car> GetAll()
+        public IDataResult<List<Car>> GetAll()
         {
             //business codes
 
-            return _carDal.GetAll();
+            if(DateTime.Now.Hour==22)
+            {
+                return new ErrorDataResult<List<Car>>(Messages.MaintenanceTime);
+            }
+
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(),Messages.CarListed);
         }
 
-        public Car GetById(int id)
+        public IDataResult<Car> GetById(int id)
         {
-            return _carDal.Get(p => p.CarId == id);
+            return new SuccessDataResult<Car>(_carDal.Get(p => p.CarId == id),Messages.CarListed);
         }
 
-        public List<Car> GetCarsByBrandId(int id)
+        public IDataResult<List<Car>> GetCarsByBrandId(int id)
         {
-            return _carDal.GetAll(p => p.BrandId == id);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.BrandId == id));
         }
 
-        public List<Car> GetCarsByColorId(int id)
+        public IDataResult<List<Car>> GetCarsByColorId(int id)
         {
             
-            return _carDal.GetAll(p => p.ColorId == id);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.ColorId == id));
         }
 
-        public void Delete(Car car)
+        public IResult Delete(Car car)
         {
             _carDal.Delete(car);
+            return new SuccessResult(Messages.CarDeleted);
         }
 
-        public void Update(Car car)
+        public IResult Update(Car car)
         {
             _carDal.Update(car);
+            return new SuccessResult(Messages.CarUpdated);
         }
 
-        public List<CarDetailDto> GetCarDetails()
+        public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
-            return _carDal.GetCarDetails();
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
+        }
+
+        public IDataResult<List<Car>> GetCarsByDailyPrice(decimal min, decimal max)
+        {
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(p => p.DailyPrice >= min && p.DailyPrice <= max),Messages.CarListed);
         }
     }
 }
