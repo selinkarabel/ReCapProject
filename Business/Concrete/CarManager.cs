@@ -1,9 +1,13 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,56 +23,64 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        private bool checkCarNameValue(Car car)
-        {
-            bool checkValue = true;
+        //Below lines are commented because Car Validator is added into the project
+        //private bool checkCarNameValue(Car car)
+        //{
+        //    bool checkValue = true;
 
-            if (car.CarName.Length <= 2)
-                checkValue = false;
+        //    if (car.CarName.Length <= 2)
+        //        checkValue = false;
 
-            return checkValue;
-        }
+        //    return checkValue;
+        //}
 
-        private bool checkCarDailyPriceValue(Car car)
-        {
-            bool checkValue = true;
+        //private bool checkCarDailyPriceValue(Car car)
+        //{
+        //    bool checkValue = true;
 
-            if (car.DailyPrice == 0)
-                checkValue = false;
+        //    if (car.DailyPrice == 0)
+        //        checkValue = false;
 
-            return checkValue;
-        }
+        //    return checkValue;
+        //}
 
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-            if (checkCarNameValue(car) == true & checkCarDailyPriceValue(car) == true)
-            {
+            //if (checkCarNameValue(car) == true & checkCarDailyPriceValue(car) == true)
+            //{
+
+          
+                ///Fluent Validation
+                ///ValidationTool.Validate(new CarValidator(), car);    
+
+
                 _carDal.Add(car);
 
                 return new SuccessResult(Messages.CarAdded);
-            }
-            else if(!checkCarNameValue(car))
-            {
-                if (!checkCarDailyPriceValue(car))
-                {
-                    return new ErrorResult(Messages.CarDailyPriceInvalid);
-                }
+            //}
+            //else if(!checkCarNameValue(car))
+            //{
+            //    if (!checkCarDailyPriceValue(car))
+            //    {
+            //        return new ErrorResult(Messages.CarDailyPriceInvalid);
+            //    }
 
-                return new ErrorResult(Messages.CarNameInvalid);
-            }
-            else if (!checkCarDailyPriceValue(car))
-            {
-                if (!checkCarNameValue(car))
-                {
-                    return new ErrorResult(Messages.CarNameInvalid);
-                }
+            //    return new ErrorResult(Messages.CarNameInvalid);
+            //}
+            //else if (!checkCarDailyPriceValue(car))
+            //{
+            //    if (!checkCarNameValue(car))
+            //    {
+            //        return new ErrorResult(Messages.CarNameInvalid);
+            //    }
 
-                return new ErrorResult(Messages.CarDailyPriceInvalid);
-            }
-            else
-            {
-                return new ErrorResult(Messages.ContactSysAdmin);
-            }
+            //    return new ErrorResult(Messages.CarDailyPriceInvalid);
+            //}
+            //else
+            //{
+            //    return new ErrorResult(Messages.ContactSysAdmin);
+            //}
             
         }
 

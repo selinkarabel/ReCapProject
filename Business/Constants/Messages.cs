@@ -22,7 +22,7 @@ namespace Business.Constants
 
         public static string CarListed = "Car is listed";
 
-        public static string CarDailyPriceInvalid = "Daily Price of the car can not be equal to 0 !";
+        public static string CarDailyPriceInvalid = "Daily Price of the carmust be grater than 0 !";
 
         public static string CarNameInvalid = "Name of the car must be min 2 characters!";
 
