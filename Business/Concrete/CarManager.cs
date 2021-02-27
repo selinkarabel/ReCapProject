@@ -23,64 +23,22 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
-        //Below lines are commented because Car Validator is added into the project
-        //private bool checkCarNameValue(Car car)
-        //{
-        //    bool checkValue = true;
-
-        //    if (car.CarName.Length <= 2)
-        //        checkValue = false;
-
-        //    return checkValue;
-        //}
-
-        //private bool checkCarDailyPriceValue(Car car)
-        //{
-        //    bool checkValue = true;
-
-        //    if (car.DailyPrice == 0)
-        //        checkValue = false;
-
-        //    return checkValue;
-        //}
 
         [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-            //if (checkCarNameValue(car) == true & checkCarDailyPriceValue(car) == true)
-            //{
+            //business codes
 
-          
-                ///Fluent Validation
-                ///ValidationTool.Validate(new CarValidator(), car);    
-
+           // IResult result = BusinessRules.Run();
+           //if(result != null)
+           // {
+           //     return result;
+           // }
 
                 _carDal.Add(car);
 
                 return new SuccessResult(Messages.CarAdded);
-            //}
-            //else if(!checkCarNameValue(car))
-            //{
-            //    if (!checkCarDailyPriceValue(car))
-            //    {
-            //        return new ErrorResult(Messages.CarDailyPriceInvalid);
-            //    }
-
-            //    return new ErrorResult(Messages.CarNameInvalid);
-            //}
-            //else if (!checkCarDailyPriceValue(car))
-            //{
-            //    if (!checkCarNameValue(car))
-            //    {
-            //        return new ErrorResult(Messages.CarNameInvalid);
-            //    }
-
-            //    return new ErrorResult(Messages.CarDailyPriceInvalid);
-            //}
-            //else
-            //{
-            //    return new ErrorResult(Messages.ContactSysAdmin);
-            //}
+           
             
         }
 
