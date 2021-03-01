@@ -64,5 +64,8 @@ namespace Business.Constants
 
         public static string ContactSysAdmin = "PLS contact with system admin..";
 
+        public static string CarImageLimitExceeded = "More than 5 images cannot be added";
+
+        public static string NoCarImages = "The car does not have any images";
     }
 }
