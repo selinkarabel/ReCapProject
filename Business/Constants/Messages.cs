@@ -67,5 +67,7 @@ namespace Business.Constants
         public static string CarImageLimitExceeded = "More than 5 images cannot be added";
 
         public static string NoCarImages = "The car does not have any images";
+
+        public static string AuthorizationDenied = "Your authorization denied!";
     }
 }
