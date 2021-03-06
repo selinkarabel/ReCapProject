@@ -11,7 +11,7 @@ namespace Business.Abstract
     {
         IDataResult<List<User>> GetAll();
         IDataResult<User> GetById(int id);
-        IResult Add(User user);
+        void Add(User user);
         IResult Update(User user);
         IResult Delete(User user);
         User GetByMail(string email);

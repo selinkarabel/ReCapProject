@@ -31,6 +31,7 @@ namespace Business.Concrete
             {
                 Email = userForRegisterDto.Email,
                 FirstName = userForRegisterDto.FirstName,
+                MiddleName = userForRegisterDto.MiddleName,
                 LastName = userForRegisterDto.LastName,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
